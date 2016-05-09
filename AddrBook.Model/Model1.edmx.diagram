@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a5f0812b38d41a38b874f675e59b61d" Name="关系图1">
+        <EntityTypeShape EntityType="AddrBookModel.ContactsInfo" Width="1.5" PointX="5.25" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AddrBookModel.DetailInfo" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AddrBookModel.GroupInfo" Width="1.5" PointX="0.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AddrBookModel.RecordInfo" Width="1.5" PointX="7.5" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="AddrBookModel.FK_DetailInfo_ContactsId" ManuallyRouted="false" />
+        <AssociationConnector Association="AddrBookModel.FK_RecordInfo_ContactsId" ManuallyRouted="false" />
+        <AssociationConnector Association="AddrBookModel.FK_DetailInfo_GroupId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

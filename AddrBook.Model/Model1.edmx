@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AddrBookModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="AddrBookModelStoreContainer">
+          <EntitySet Name="ContactsInfo" EntityType="AddrBookModel.Store.ContactsInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DetailInfo" EntityType="AddrBookModel.Store.DetailInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="GroupInfo" EntityType="AddrBookModel.Store.GroupInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RecordInfo" EntityType="AddrBookModel.Store.RecordInfo" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_DetailInfo_ContactsId" Association="AddrBookModel.Store.FK_DetailInfo_ContactsId">
+            <End Role="ContactsInfo" EntitySet="ContactsInfo" />
+            <End Role="DetailInfo" EntitySet="DetailInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailInfo_GroupId" Association="AddrBookModel.Store.FK_DetailInfo_GroupId">
+            <End Role="GroupInfo" EntitySet="GroupInfo" />
+            <End Role="DetailInfo" EntitySet="DetailInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecordInfo_ContactsId" Association="AddrBookModel.Store.FK_RecordInfo_ContactsId">
+            <End Role="ContactsInfo" EntitySet="ContactsInfo" />
+            <End Role="RecordInfo" EntitySet="RecordInfo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ContactsInfo">
+          <Key>
+            <PropertyRef Name="ContactsId" />
+          </Key>
+          <Property Name="ContactsId" Type="int" Nullable="false" />
+          <Property Name="ContactsName" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="DetailInfo">
+          <Key>
+            <PropertyRef Name="ContactsId" />
+          </Key>
+          <Property Name="ContactsId" Type="int" Nullable="false" />
+          <Property Name="PhoneNumber" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="30" />
+          <Property Name="GroupId" Type="int" />
+        </EntityType>
+        <EntityType Name="GroupInfo">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="int" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="RecordInfo">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="RecordId" Type="int" Nullable="false" />
+          <Property Name="ContactsId" Type="int" Nullable="false" />
+          <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="CallTime" Type="int" />
+        </EntityType>
+        <Association Name="FK_DetailInfo_ContactsId">
+          <End Role="ContactsInfo" Type="AddrBookModel.Store.ContactsInfo" Multiplicity="1" />
+          <End Role="DetailInfo" Type="AddrBookModel.Store.DetailInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ContactsInfo">
+              <PropertyRef Name="ContactsId" />
+            </Principal>
+            <Dependent Role="DetailInfo">
+              <PropertyRef Name="ContactsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailInfo_GroupId">
+          <End Role="GroupInfo" Type="AddrBookModel.Store.GroupInfo" Multiplicity="0..1" />
+          <End Role="DetailInfo" Type="AddrBookModel.Store.DetailInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupInfo">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="DetailInfo">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecordInfo_ContactsId">
+          <End Role="ContactsInfo" Type="AddrBookModel.Store.ContactsInfo" Multiplicity="1" />
+          <End Role="RecordInfo" Type="AddrBookModel.Store.RecordInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContactsInfo">
+              <PropertyRef Name="ContactsId" />
+            </Principal>
+            <Dependent Role="RecordInfo">
+              <PropertyRef Name="ContactsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AddrBookModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AddrBookContext" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="ContactsInfo" EntityType="AddrBookModel.ContactsInfo" />
+          <EntitySet Name="DetailInfo" EntityType="AddrBookModel.DetailInfo" />
+          <EntitySet Name="GroupInfo" EntityType="AddrBookModel.GroupInfo" />
+          <EntitySet Name="RecordInfo" EntityType="AddrBookModel.RecordInfo" />
+          <AssociationSet Name="FK_DetailInfo_ContactsId" Association="AddrBookModel.FK_DetailInfo_ContactsId">
+            <End Role="ContactsInfo" EntitySet="ContactsInfo" />
+            <End Role="DetailInfo" EntitySet="DetailInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecordInfo_ContactsId" Association="AddrBookModel.FK_RecordInfo_ContactsId">
+            <End Role="ContactsInfo" EntitySet="ContactsInfo" />
+            <End Role="RecordInfo" EntitySet="RecordInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailInfo_GroupId" Association="AddrBookModel.FK_DetailInfo_GroupId">
+            <End Role="GroupInfo" EntitySet="GroupInfo" />
+            <End Role="DetailInfo" EntitySet="DetailInfo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ContactsInfo">
+          <Key>
+            <PropertyRef Name="ContactsId" />
+          </Key>
+          <Property Name="ContactsId" Type="Int32" Nullable="false" />
+          <Property Name="ContactsName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="DetailInfo" Relationship="AddrBookModel.FK_DetailInfo_ContactsId" FromRole="ContactsInfo" ToRole="DetailInfo" />
+          <NavigationProperty Name="RecordInfo" Relationship="AddrBookModel.FK_RecordInfo_ContactsId" FromRole="ContactsInfo" ToRole="RecordInfo" />
+        </EntityType>
+        <EntityType Name="DetailInfo">
+          <Key>
+            <PropertyRef Name="ContactsId" />
+          </Key>
+          <Property Name="ContactsId" Type="Int32" Nullable="false" />
+          <Property Name="PhoneNumber" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="GroupId" Type="Int32" />
+          <NavigationProperty Name="ContactsInfo" Relationship="AddrBookModel.FK_DetailInfo_ContactsId" FromRole="DetailInfo" ToRole="ContactsInfo" />
+          <NavigationProperty Name="GroupInfo" Relationship="AddrBookModel.FK_DetailInfo_GroupId" FromRole="DetailInfo" ToRole="GroupInfo" />
+        </EntityType>
+        <EntityType Name="GroupInfo">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="Int32" Nullable="false" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="DetailInfo" Relationship="AddrBookModel.FK_DetailInfo_GroupId" FromRole="GroupInfo" ToRole="DetailInfo" />
+        </EntityType>
+        <EntityType Name="RecordInfo">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="RecordId" Type="Int32" Nullable="false" />
+          <Property Name="ContactsId" Type="Int32" Nullable="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CallTime" Type="Int32" />
+          <NavigationProperty Name="ContactsInfo" Relationship="AddrBookModel.FK_RecordInfo_ContactsId" FromRole="RecordInfo" ToRole="ContactsInfo" />
+        </EntityType>
+        <Association Name="FK_DetailInfo_ContactsId">
+          <End Role="ContactsInfo" Type="AddrBookModel.ContactsInfo" Multiplicity="1" />
+          <End Role="DetailInfo" Type="AddrBookModel.DetailInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ContactsInfo">
+              <PropertyRef Name="ContactsId" />
+            </Principal>
+            <Dependent Role="DetailInfo">
+              <PropertyRef Name="ContactsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecordInfo_ContactsId">
+          <End Role="ContactsInfo" Type="AddrBookModel.ContactsInfo" Multiplicity="1" />
+          <End Role="RecordInfo" Type="AddrBookModel.RecordInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContactsInfo">
+              <PropertyRef Name="ContactsId" />
+            </Principal>
+            <Dependent Role="RecordInfo">
+              <PropertyRef Name="ContactsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailInfo_GroupId">
+          <End Role="GroupInfo" Type="AddrBookModel.GroupInfo" Multiplicity="0..1" />
+          <End Role="DetailInfo" Type="AddrBookModel.DetailInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupInfo">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="DetailInfo">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AddrBookModelStoreContainer" CdmEntityContainer="AddrBookContext">
+          <EntitySetMapping Name="ContactsInfo">
+            <EntityTypeMapping TypeName="AddrBookModel.ContactsInfo">
+              <MappingFragment StoreEntitySet="ContactsInfo">
+                <ScalarProperty Name="ContactsId" ColumnName="ContactsId" />
+                <ScalarProperty Name="ContactsName" ColumnName="ContactsName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailInfo">
+            <EntityTypeMapping TypeName="AddrBookModel.DetailInfo">
+              <MappingFragment StoreEntitySet="DetailInfo">
+                <ScalarProperty Name="ContactsId" ColumnName="ContactsId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupInfo">
+            <EntityTypeMapping TypeName="AddrBookModel.GroupInfo">
+              <MappingFragment StoreEntitySet="GroupInfo">
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecordInfo">
+            <EntityTypeMapping TypeName="AddrBookModel.RecordInfo">
+              <MappingFragment StoreEntitySet="RecordInfo">
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+                <ScalarProperty Name="ContactsId" ColumnName="ContactsId" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="CallTime" ColumnName="CallTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
